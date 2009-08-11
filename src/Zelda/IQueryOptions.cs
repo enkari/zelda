@@ -4,11 +4,11 @@ using System.Linq.Expressions;
 
 namespace Zelda
 {
-	public interface IQueryOptions<T>
-		where T : IEntity
+	public interface IQueryOptions<K, T>
+		where T : IEntity<K>
 	{
 		ICollection<string> Expansions { get; }
-		IQueryOptions<T> AddExpansion(Expression<Func<T, object>> path);
-		IQueryOptions<T> AddExpansion(string path);
+		IQueryOptions<K, T> AddExpansion(Expression<Func<T, object>> path);
+		IQueryOptions<K, T> AddExpansion(string path);
 	}
 }

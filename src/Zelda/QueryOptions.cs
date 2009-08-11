@@ -5,10 +5,10 @@ using System.Linq.Expressions;
 
 namespace Zelda
 {
-	public class QueryOptions<T> : IQueryOptions<T>
-		where T : IEntity
+	public class QueryOptions<K, T> : IQueryOptions<K, T>
+		where T : IEntity<K>
 	{
-		public static readonly QueryOptions<T> Empty = new QueryOptions<T>();
+		public static readonly QueryOptions<K, T> Empty = new QueryOptions<K, T>();
 
 		public QueryOptions()
 		{
@@ -17,13 +17,13 @@ namespace Zelda
 
 		public ICollection<string> Expansions { get; private set; }
 
-		public IQueryOptions<T> AddExpansion(Expression<Func<T, object>> path)
+		public IQueryOptions<K, T> AddExpansion(Expression<Func<T, object>> path)
 		{
 			Expansions.Add(String.Join(".", GetPathTokens(path).Reverse().ToArray()));
 			return this;
 		}
 
-		public IQueryOptions<T> AddExpansion(string path)
+		public IQueryOptions<K, T> AddExpansion(string path)
 		{
 			Expansions.Add(path);
 			return this;

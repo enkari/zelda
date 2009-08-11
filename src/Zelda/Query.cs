@@ -4,8 +4,8 @@ using System.Linq.Expressions;
 
 namespace Zelda
 {
-	public abstract class Query<T> : IQuery<T>
-		where T : IEntity
+	public abstract class Query<K, T> : IQuery<K, T>
+		where T : IEntity<K>
 	{
 		public abstract Expression<Func<T, bool>> MatchingCriteria { get; }
 

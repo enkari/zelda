@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdHocQuery.cs" />
+    <Compile Include="InMemoryGuidRepository.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="InMemoryIntRepository.cs" />
     <Compile Include="InMemoryRepository.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IQueryOptions.cs" />

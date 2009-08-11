@@ -4,8 +4,8 @@ using NHibernate.Linq;
 
 namespace Zelda.NHibernate
 {
-	public class NHibernateRepository<T> : RepositoryBase<T>
-		where T : IEntity
+	public class NHibernateRepository<K, T> : RepositoryBase<K, T>
+		where T : IEntity<K>
 	{
 		public ISessionFactory SessionFactory { get; private set; }
 
@@ -29,12 +29,12 @@ namespace Zelda.NHibernate
 			Session.Delete(entity);
 		}
 
-		public override T Load(int id)
+		public override T Load(K id)
 		{
 			return Session.Load<T>(id);
 		}
 
-		public override IQueryable<T> FindAll(IQueryOptions<T> options)
+		public override IQueryable<T> FindAll(IQueryOptions<K, T> options)
 		{
 			QueryOptions nhibernateQueryOptions = GetNHibernateQueryOptions(options);
 			var provider = new NHibernateQueryProvider(Session, nhibernateQueryOptions);
@@ -42,7 +42,7 @@ namespace Zelda.NHibernate
 			return new global::NHibernate.Linq.Query<T>(provider, nhibernateQueryOptions);
 		}
 
-		public QueryOptions GetNHibernateQueryOptions(IQueryOptions<T> options)
+		public QueryOptions GetNHibernateQueryOptions(IQueryOptions<K, T> options)
 		{
 			var nhibernateQueryOptions = new QueryOptions();
 

@@ -3,8 +3,8 @@ using System.Linq.Expressions;
 
 namespace Zelda
 {
-	public class AdHocQuery<T> : Query<T>
-		where T : IEntity
+	public class AdHocQuery<K, T> : Query<K, T>
+		where T : IEntity<K>
 	{
 		private readonly Expression<Func<T, bool>> _criteria;
 
